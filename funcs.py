@@ -119,8 +119,8 @@ def bracket(text):
 
 	if text[1] in inbracket:
 		if text[2] in ininbracket:
-			return '[[' + ininbracket[text[2]](text[2:])
-		return '[' + inbracket[text[1]](text[1:])
+			return ininbracket[text[2]](text[2:])
+		return inbracket[text[1]](text[1:])
 	else:
 		return text[0] + parse(text[1:])
 
@@ -210,7 +210,7 @@ def link(text):
 	is to remove any "Main/." which exists in the path, since this is not needed in mediawiki"""
 
 	text = text.split(']]',1)
-	outp = text[0]
+	outp = "[" + text[0]
 	outp = outp.replace("Main/", "")
 	outp = outp.replace("Main.", "")
 	outp = outp.replace("Profiles/", "Profiles:")
@@ -225,7 +225,7 @@ def link(text):
 def profile(text):
 	text = text.split('|', 1)
 	text[0] = "Profiles:" + text[0][1:]
-	return '|'.join(text)
+	return "[[" + '|'.join(text)
 
 def bigger(text):
 	"""Treat big as binary. I.e [++++ is the same as [+, since only <big> exists
@@ -257,8 +257,8 @@ def lesser(text):
 	"""Treat small as binary. I.e [++++ is the same as [+, since only <small> exists
 	(If you don't want to use font size and stuff, but that's not needed in our case"""
 	text = text.split(']', 1)
-	for num, c in enumerate(text[1]):
-		if c != '+':
+	for num, c in enumerate(text[0]):
+		if c != '-':
 			break
 
 	text[0] = text[0][num:-num]
