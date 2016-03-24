@@ -1,0 +1,3 @@
+Atm these python files assumes that "funcs.py" is in the same dir as them, thus, whenever they are in this directory, they won't work.
+I just wanted to separate the testdata and the convert-script for now.
+Will fix this later when I've made a main.py file which allows testdata-scripts as input.
