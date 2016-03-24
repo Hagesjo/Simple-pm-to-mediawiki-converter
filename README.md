@@ -8,6 +8,7 @@ Note that the target installation that this is written for is in swedish and so 
 
 * Options is a PITA.
 * Tables?
+* A simple script using the parser.
 
 ## What works
 
