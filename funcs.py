@@ -382,7 +382,6 @@ inparant = {
 	":" : parant }
 
 spec = {
-	"!" : separat,
 	"@" : writer,
 	"[" : bracket,
 	"^" : expo,
@@ -419,6 +418,7 @@ inline = {
 }
 
 fils = {
+        "!" : separat,
 	"||" : table,
 	":" : vars
 }
