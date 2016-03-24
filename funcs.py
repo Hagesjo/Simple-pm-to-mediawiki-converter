@@ -408,11 +408,6 @@ inbracket = {
 	"-" : lesser 
 }
 
-
-ininbracket = { # Best name eu
-	"~" : profile 
-}
-
 indents = {
 	">" : ident,
 	"<" : revident 
