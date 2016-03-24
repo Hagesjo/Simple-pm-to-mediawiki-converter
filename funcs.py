@@ -15,8 +15,11 @@ def main(text):
 	return outp
 
 def parse(text, extradata = None):
-	"""For each character, try to look it up in a dict if it matches with any tag,
-	else continue with next character"""
+	"""For each character, try to look it up in a dict if it
+        matches with any tag, else continue with next character.
+
+        Note, this parser does not consume any characters on a match, it simply
+        forwards the string from the matched character."""
 
 	outp = ""
 	for index, t in enumerate(text):
