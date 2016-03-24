@@ -230,38 +230,49 @@ def profile(text):
 def bigger(text):
 	"""Treat big as binary. I.e [++++ is the same as [+, since only <big> exists
 	(If you don't want to use font size and stuff, but that's not needed in our case"""
-	text = text.split(']', 1)[0]
-	for index, c in enumerate(text[0]):
+	text = text.split(']', 1)
+	for num, c in enumerate(text[0]):
 		if c != '+':
 			break
-	text[0] = text[0][index:]
+
+	text[0] = text[0][num:-num]
+	outp = ""
+
 	for index, c in enumerate(text[0]):
 		if c in spec:
 			outp += spec[c](text[0][index:])
 			break
 		else:
 			outp += c
-	outp += "<big>" + outp + "</big>"
+
+	outp = "<big>" + outp + "</big>"
+
 	if len(text) == 1:
 		return outp
 	else:
 		return outp + parse(text[1])
 
-def lesser():
+
+def lesser(text):
 	"""Treat small as binary. I.e [++++ is the same as [+, since only <small> exists
 	(If you don't want to use font size and stuff, but that's not needed in our case"""
-	text = text.split(']', 1)[0]
-	for index, c in enumerate(text[0]):
+	text = text.split(']', 1)
+	for num, c in enumerate(text[1]):
 		if c != '+':
 			break
-	text[0] = text[0][index:]
+
+	text[0] = text[0][num:-num]
+	outp = ""
+
 	for index, c in enumerate(text[0]):
 		if c in spec:
 			outp += spec[c](text[0][index:])
 			break
 		else:
 			outp += c
-	outp += "<small>" + outp + "</small>"
+
+	outp = "<small>" + outp + "</small>"
+
 	if len(text) == 1:
 		return outp
 	else:
