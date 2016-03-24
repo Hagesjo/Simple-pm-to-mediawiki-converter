@@ -118,12 +118,13 @@ def bracket(text):
 	"""
 
 	if len(text) == 1:
-		return text[0]
+		return text
 
 	if text[1] in inbracket:
-		if text[2] in ininbracket:
-			return ininbracket[text[2]](text[2:])
 		return inbracket[text[1]](text[1:])
+
+        # If the first character does not contain a valid bracket character
+        # it is simply returned and the string after it is parsed.
 	else:
 		return text[0] + parse(text[1:])
 
