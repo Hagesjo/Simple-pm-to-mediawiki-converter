@@ -210,26 +210,28 @@ def revident():
 	pass
 
 def link(text):
-	"""Links are pretty similar syntax in pm/mediawiki, so all this function does
-	is to remove any "Main/." which exists in the path, since this is not needed in mediawiki"""
-
+	"""Links are pretty similar syntax in pm/mediawiki.
+	so all this function does is to remove any "Main/." which exists
+	in the path, since this is not needed in mediawiki"""
 	text = text.split(']]',1)
+
+	# Readd the striped away bracket
 	outp = "[" + text[0]
+
+	# Strip away Main
 	outp = outp.replace("Main/", "")
 	outp = outp.replace("Main.", "")
-	outp = outp.replace("Profiles/", "Profiles:")
-	outp = outp.split('"')[0]
+
+	# Rewrite profile links (yes our mediawiki is configured to swedish)
+	outp = outp.replace("~", "Användare:")
+	outp = outp.replace("Profiles/", "Användare:")
+
 	outp = outp + "]]" 
 	if len(text) == 1:
 		return outp
 	else:
 		return outp + parse(text[1])
 	pass
-
-def profile(text):
-	text = text.split('|', 1)
-	text[0] = "Profiles:" + text[0][1:]
-	return "[[" + '|'.join(text)
 
 def bigger(text):
 	"""Treat big as binary. I.e [++++ is the same as [+, since only <big> exists
