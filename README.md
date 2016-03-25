@@ -6,9 +6,9 @@ Note that the target installation that this is written for is in swedish and so 
 
 ## Todo
 
-* Options is a PITA.
 * Tables?
 * A simple script using the parser.
+* Script for inserting converted markup into the mediawiki specified
 
 ## What works
 
@@ -17,3 +17,4 @@ Note that the target installation that this is written for is in swedish and so 
 * [[ links | link test ]]
 * even [[ Profile/Links ]] are translated to [[ Användare:Links ]] *again because of swedish*.
 * unformatted text
+* options
