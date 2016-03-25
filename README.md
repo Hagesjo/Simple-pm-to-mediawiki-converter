@@ -15,5 +15,5 @@ Note that the target installation that this is written for is in swedish and so 
 * [++ bigger ++]
 * [-- smaller --]
 * [[ links | link test ]]
-* even [[ Profile/Links ]] are translated to [[ Användare:Links ]] (again because of swedish).
+* even [[ Profile/Links ]] are translated to [[ Användare:Links ]] *again because of swedish*.
 * unformatted text
