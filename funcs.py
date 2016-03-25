@@ -233,7 +233,8 @@ def link(text):
 	outp = outp.replace("Main.", "")
 
 	# Rewrite profile links (yes our mediawiki is configured to swedish)
-	outp = outp.replace("~", "Användare:")
+	if (outp.find("/~") < 0) and (outp.find("~") > 0):
+		outp = outp.replace("~", "Användare:")
 	outp = outp.replace("Profiles/", "Användare:")
 
 	outp = outp + "]]" 
