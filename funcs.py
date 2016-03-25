@@ -24,8 +24,8 @@ def parse(text, extradata = None):
 	outp = ""
 	for index, t in enumerate(text):
 		if t in spec:
-			if extradata:
-				return outp + spec[t](text[index:], extradata)
+			if args or kwargs:
+				return outp + spec[t](text[index:], *args, **kwargs)
 			else:
 				return outp + spec[t](text[index:])
 		else:
@@ -145,7 +145,7 @@ def line(text):
 	if text[1] in inline:
 		return inline[text[1]](text[2:])
 
-def attach(text, options=None):
+def attach(text, *single_options, **dict_options):
 	"""Converts attachment tag
 
 	Argument:
@@ -159,9 +159,10 @@ def attach(text, options=None):
 		text = text[7:].split(None, 1) # Remove "Attach:"
 		outp = "\n"
 		outp += "[[File:%s" % text[0] # pls no spaces in files
-		if options:
-			for option in options:
-				outp += '|%s%s' % (option_translate[option], options[option])
+		for option in single_options:
+			outp += '|%s' % option_translate[option]
+		for option in dict_options:
+			outp += '|%s%s' % (option_translate[option], dict_options[option])
 		outp += "]]\n\n"
 
 		if len(text) == 1:
@@ -173,21 +174,30 @@ def attach(text, options=None):
 
 option_translate = {
 	'width' : '',
-	'height' : 'x'
+	'height' : 'x',
+	'center' : 'center'
 }
 
-def option(text):
-	"""This sucks"""
-	# Uh, need to rewrite this
-	text = text.split('%')
-	if '\n' in text[1]:
-		return '%' + parse('%'.join(text[1:]))
-	options = text[1].split('=')
-	if len(options) != 2:
-		if options[0] in inoption:
-			return inoption[options[0]]('%'.join(text[2:]))
+def option(text, *single_options, **dict_options):
+	"""Adds option parsed to the tag that follows this option
+
+	Arguments:
+	text			--	Either %option% or %option=value%, followed by the rest of the text
+	single_option	--	A list of previous options to be sent to the next tag
+	dict_options	--	A list of previous options + values to be sent to the next tag
+	"""
+
+	single_options = list(single_options)
+
+	text = text[1:].split('%', 1)
+	option = text[0].split('=')
+
+	if len(option) == 2:
+		dict_options[option[0]] = option[1]
 	else:
-		return parse('%'.join(text[2:]), dict([tuple(options)])).strip() #LOL
+		single_options.append(option[0])
+
+	return parse(text[1], *single_options, **dict_options)
 
 def mident(text):
 	"""Pass-through function which matches with "-" and tries to match with
