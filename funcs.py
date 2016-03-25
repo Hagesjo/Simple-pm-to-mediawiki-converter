@@ -14,7 +14,7 @@ def main(text):
 		outp += '\n' + parse(i)
 	return outp
 
-def parse(text, extradata = None):
+def parse(text, *args, **kwargs):
 	"""For each character, try to look it up in a dict if it
         matches with any tag, else continue with next character.
 
