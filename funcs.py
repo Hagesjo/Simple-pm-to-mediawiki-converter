@@ -22,6 +22,9 @@ def parse(text, *args, **kwargs):
         forwards the string from the matched character."""
 
 	outp = ""
+	if text[0] in fils:
+		return fils[text[0]](text, *args, **kwargs)
+
 	for index, t in enumerate(text):
 		if t in spec:
 			if args or kwargs:
