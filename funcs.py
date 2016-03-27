@@ -310,10 +310,33 @@ def strike(text):
 	return "<strike>" + text[0] + "</strike>" + parse(text[1])
 
 def fil(text):
-	for i in range(2,4): # TODO: one letter at a time.
-		if text[1:i] in fils:
-			return text[0] + fils[text[1:i]](text[1:])
-	return text[0] + parse(text[1:])
+	"""
+	Parser wrapper for first in line characters.
+	It checks whether the second character is in the fils dictionary and
+	then calls that corresponding parser with the string as argument.
+
+	Otherwise it returns the first character and the rest of the string parsed, 
+	if one exists.
+	"""
+	if len(text) > 1 and text[1] in fils:
+		return text[0] + fils[text[1]](text[1:])
+
+	elif len(text) > 1:
+		return text[0] + parse(text[1:])
+
+	else:
+		return text[0]
+
+def begin_table(text):
+	"""
+	A wrapper that checks if next character after a | is also |.
+	In that case it calls the table parser with the string, otherwise it returns 
+	the | as raw text and the parsed remainder of the text.
+	"""
+	if len(text) > 1 and text[1] == '|':
+		table(text)
+	else:
+		return text[0] + parse(text[1:])
 
 def table(text):
 	outp = ""
@@ -433,8 +456,8 @@ inline = {
 }
 
 fils = {
-        "!" : separat,
-	"||" : table,
+	"!" : separat,
+	"|" : begin_table,
 	":" : vars
 }
 
